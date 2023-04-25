@@ -6,11 +6,18 @@ using UnityEngine;
  * 
  * 
  */
+
+//Make Pod
+//Player -Pod Interact
+//Control creature
+//Creature control release- Z
+//Missiles - Cool things
 public enum GameMode
 {
     NORMAL,
     FPS
 }
+
 
 public class PodController : MonoBehaviour
 {
@@ -49,17 +56,17 @@ public class PodController : MonoBehaviour
     [SerializeField]
     private Boid playerBoid;
 
-    //Make Pod
-    //Player -Pod Interact
-    //Control creature
-    //Creature control release- Z
-    //Missiles - Cool things
-
+   
     //Camera
     [SerializeField]
     private GameObject FPSCam;
     [SerializeField]
     private GameObject mainCamera;
+
+    //Cool things
+    [SerializeField]
+    private int playerHP;
+
     private void OnEnable()
     {
         playerTag = "Player11";
@@ -76,12 +83,14 @@ public class PodController : MonoBehaviour
 
         otherTarget = GameObject.FindGameObjectWithTag(playerTag);
         playerSeekController = otherTarget.GetComponent<Seek>();
-        Debug.Log("Reference of seek found:" + playerSeekController);
+       
 
         myTransform = this.gameObject.transform;
 
         playerFPSController = GameObject.FindGameObjectWithTag(playerTag).GetComponent<FPSController>();
         playerBoid = GameObject.FindGameObjectWithTag(playerTag).GetComponent<Boid>();
+
+        playerHP = 100;
 
     }
 
@@ -91,6 +100,7 @@ public class PodController : MonoBehaviour
         automaticControl();
         if (insidePod == true)
         {
+            Debug.Log("moving and forwarding");
             moveToPodCenter();
             faceForwardMovement();
         }
@@ -100,13 +110,9 @@ public class PodController : MonoBehaviour
     {
         if (other.tag == playerTag)
         {
-           
-            Debug.Log("Cant touch this");
-            Debug.Log("I got touched by" + other.transform.position);
-
+        
             playerBoid.enabled = false;
             insidePod = true;
-
         }
     }
 
@@ -121,9 +127,18 @@ public class PodController : MonoBehaviour
 
     private float rotateSpeed = 45;
     private float moveToCenterSpeed = 10;
+
+    public void givePlayerDamage()
+    {
+        playerHP -= 10;
+        Debug.Log(playerHP + " now");
+        if(playerHP <= 0)
+        {
+            Destroy(this, 5);
+        }
+    }
     private void moveToPodCenter()
     {
-        //Move slow to center of pod
         Transform playerTransform;
         playerTransform = playerGO.transform;
         Vector3 moveTo = myTransform.position * (moveToCenterSpeed * Time.deltaTime);
@@ -132,7 +147,6 @@ public class PodController : MonoBehaviour
    
     private void faceForwardMovement()
     {
-        //Face forward
         playerGO.transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
     }
 
@@ -157,7 +171,6 @@ public class PodController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             
-            Debug.Log("I am on Autopilot" + autocontrol);//76%
             playerFPSController.enabled = true;
             playerBoid.enabled = !playerBoid.enabled;
             if(autocontrol == true) 
