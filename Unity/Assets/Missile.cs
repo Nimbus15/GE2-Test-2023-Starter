@@ -30,7 +30,7 @@ public class Missile : MonoBehaviour
     {
         if(canTakeDamage == true)
         {
-            podGO.GetComponent<PodController>().givePlayerDamage();
+            playerTarget.GetComponentInChildren<PodController>().givePlayerDamage();
             canTakeDamage = false;
         }
     }
