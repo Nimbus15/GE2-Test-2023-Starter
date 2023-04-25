@@ -53,6 +53,7 @@ public class PodController : MonoBehaviour
     //Player -Pod Interact
     //Control creature
     //Creature control release- Z
+    //Missiles - Cool things
 
     //Camera
     [SerializeField]
@@ -91,7 +92,7 @@ public class PodController : MonoBehaviour
         if (insidePod == true)
         {
             moveToPodCenter();
-            //faceForwardMovement();
+            faceForwardMovement();
         }
     }
 
@@ -100,7 +101,6 @@ public class PodController : MonoBehaviour
         if (other.tag == playerTag)
         {
            
-            //Rotate forward
             Debug.Log("Cant touch this");
             Debug.Log("I got touched by" + other.transform.position);
 
@@ -126,7 +126,7 @@ public class PodController : MonoBehaviour
         //Move slow to center of pod
         Transform playerTransform;
         playerTransform = playerGO.transform;
-        Vector3 moveTo = myTransform.position - playerTransform.position * (moveToCenterSpeed * Time.deltaTime);
+        Vector3 moveTo = myTransform.position * (moveToCenterSpeed * Time.deltaTime);
     }
 
    
