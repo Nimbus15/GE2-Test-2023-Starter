@@ -52,6 +52,7 @@ public class PodController : MonoBehaviour
     //Make Pod
     //Player -Pod Interact
     //Control creature
+    //Creature control release- Z
 
     //Camera
     [SerializeField]
