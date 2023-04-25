@@ -137,6 +137,13 @@ public class PodController : MonoBehaviour
             Destroy(this, 5);
         }
     }
+
+    public void givePlayerHealth()
+    {
+        playerHP += 10;
+        Debug.Log(playerHP + " now");
+        
+    }
     private void moveToPodCenter()
     {
         Transform playerTransform;
