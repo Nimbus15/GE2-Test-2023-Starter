@@ -50,6 +50,7 @@ public class PodController : MonoBehaviour
     private Boid playerBoid;
 
     //Make Pod
+    //Player -Pod Interact
 
     //Camera
     [SerializeField]
