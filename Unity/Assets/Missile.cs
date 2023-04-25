@@ -8,7 +8,8 @@ public class Missile : MonoBehaviour
     private Seek seekScript;
     private string playerTag;
     private bool canTakeDamage = false;
-    private GameObject podGO;
+    [SerializeField]
+    public GameObject podGO;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,7 @@ public class Missile : MonoBehaviour
     {
         if(canTakeDamage == true)
         {
-            playerTarget.GetComponentInChildren<PodController>().givePlayerDamage();
+            podGO.GetComponent<PodController>().givePlayerDamage();
             canTakeDamage = false;
         }
     }
